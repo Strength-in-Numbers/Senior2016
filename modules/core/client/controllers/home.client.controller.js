@@ -22,7 +22,20 @@ angular.module('map', ['uiGmapgoogle-maps'])
     var areaLat = 37.09024,
         areaLng = -95.712891,
         areaZoom = 4;
-
+ //    $scope.searchbox = { 
+	//     model : "",
+	//     template : 'searchbox.tpl.html',
+	//     options: {
+	//           autocomplete:true,
+	//           componentRestrictions: {country: 'ch'}
+	//      },
+	//      events : {
+	//           places_changed : function (searchbox) {
+	//                 vm.place = searchbox.getPlaces()[0];
+	//                 vm.coordinates = { latitude : vm.place.geometry.location.lat(), longitude : vm.place.geometry.location.lng()  }
+	//           }
+	//      }
+	// };
 
     uiGmapGoogleMapApi.then(function (maps) {
         $scope.map = { center: { latitude: areaLat, longitude: areaLng }, zoom: areaZoom };
@@ -30,7 +43,7 @@ angular.module('map', ['uiGmapgoogle-maps'])
         var events = {
           places_changed: function (searchBox) {}
         };
-        $scope.searchbox = { template:'searchbox.tpl.html', events:events};
+        
     });
 
 });
