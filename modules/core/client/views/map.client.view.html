@@ -1,12 +1,29 @@
 <section >
+<!-- Originally used to reload jquery, (probably placed in the wrong spot)
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js">
+	</script>
+
+-->
+
+
+
+
 	<div data-ng-controller = "mapController">
-	 	<div class="map_canvas">
-			<ui-gmap-google-map center='map.center' zoom='map.zoom'>
-				<ui-gmap-search-box template="searchbox.template" events="searchbox.events">
-				</ui-gmap-search-box>
+		<div id="searchbox">
+        <label>Enter an address: </label>
+      	</div>
+	    <input id="searchbox.tpl.html" type="text" placeholder="Search Box">
+	    <input id="place_box" type="text" placeholder="Javascript test">
 
-			</ui-gmap-google-map>	    
-		</div>
+
+		<!-- Everything has to go within the google map container -->
+		<ui-gmap-google-map center='map.center' zoom='map.zoom'>
+			<ui-gmap-search-box template="searchbox.template" events="searchbox.events " position="searchbox.position">
+			</ui-gmap-search-box>
+			
+			<ui-gmap-marker coords="marker.coordinates" idkey="marker.id">
+        	</ui-gmap-marker>
+
+		</ui-gmap-google-map>	    
     </div>
-
 </section>
