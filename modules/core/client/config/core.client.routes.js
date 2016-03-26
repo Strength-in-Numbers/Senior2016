@@ -17,9 +17,14 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         url: '/map',
         templateUrl: 'modules/core/views/map.client.view.html'
       })
+      .state('form', {
+        url: '/form',
+        templateUrl: 'modules/core/views/submission.client.view.html'
+      })
       .state('not-found', {
         url: '/not-found',
         templateUrl: 'modules/core/views/404.client.view.html'
       });
+
   }
 ]);
