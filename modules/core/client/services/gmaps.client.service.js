@@ -11,26 +11,24 @@ angular.module('gservice', [])
 
         // Array of locations obtained from API calls
         var locations = [];
-
+        var gymPlacesList = [];
         // Selected Location (initialize to center of America)
-        var selectedLat = 39.50;
-        var selectedLong = -98.35;
+        var selectedLat = 29.651;
+        var selectedLong = -82.324;
+        var newParameters = 'gym';
+        var map;
+        var bounds;
 
-        googleMapService.test = function(){
-            return "hello";
-        };
         // Functions
         // --------------------------------------------------------------
         // Refresh the Map with new data. Function will take new latitude and longitude coordinates.
         googleMapService.refresh = function(latitude, longitude){
-
             // Clears the holding array of locations
             locations = [];
 
             // Set the selected lat and long equal to the ones provided on the refresh() call
             selectedLat = latitude;
             selectedLong = longitude;
-            console.log("Lat + long" + latitude + " " + longitude);
             initialize(latitude, longitude);
             // // Perform an AJAX call to get all of the records in the db.
             // $http.get('/users').success(function(response){
@@ -41,10 +39,69 @@ angular.module('gservice', [])
             //     // Then initialize the map.
             //     initialize(latitude, longitude);
             // }).error(function(){});
-        };
+            console.log('Gym list: ' + gymPlacesList);
 
+        };
+        googleMapService.getPlaces = function(){
+            return gymPlacesList;
+        };
+        googleMapService.init = function(){
+            initialize(selectedLat, selectedLong);
+        };
+        googleMapService.grabInput = function(searchBox, inputParameters){
+            var place = searchBox.getPlace();
+            var newLatLng = place.geometry.location;
+            selectedLat = newLatLng.lat();
+            selectedLong = newLatLng.lng();
+            console.log('New LTLNG:' + selectedLat + selectedLong);
+            
+            console.log(inputParameters);
+            if (inputParameters.name !== 'All'){
+                newParameters = inputParameters.name;
+            }else {
+                console.log('is equal to All');
+            }
+        };
         // Private Inner Functions
         // --------------------------------------------------------------
+        //Callback on nearby search request
+        var callback = function(results, status) {
+            var locations = [];
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                console.log('Status request succeed, result is length: ' + results.length);
+                createMarkers(results);
+                gymPlacesList = results;
+            }else{
+                console.log('Status request failed');
+            }
+        };
+        var createMarkers = function(places) {
+            //var placesList = document.getElementById('places');
+            var maxPlaces = 5;
+            for (var i = 0, place; i < places.length && i < maxPlaces; i++) {
+                place = places[i];
+                //Image will hopefully represent a gym? might change to default marker
+                var image = {
+                    url: place.icon,
+                    size: new google.maps.Size(71, 71),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(25, 25)
+                };
+
+                var marker = new google.maps.Marker({
+                    map: map,
+                    icon: image, // 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' //replace for default icon
+                    title: place.name,
+                    position: place.geometry.location
+                });
+
+                //placesList.innerHTML += '<li>' + place.name + '</li>';
+
+                bounds.extend(place.geometry.location);
+            }
+            map.fitBounds(bounds);
+        };
         // Convert a JSON of users into map points
         var convertToMapPoints = function(response){
 
@@ -84,20 +141,45 @@ angular.module('gservice', [])
         var initialize = function(latitude, longitude) {
 
             // Uses the selected lat, long as starting point
-            var myLatLng = {lat: selectedLat, lng: selectedLong};
-            var map;
+            var myLatLng = {lat: latitude, lng: longitude};
+            //var myLatLng = {lat: 29.651, lng: -82.324};
             // If map has not been created already...
-            if (!map){
+            //if (!map){
 
                 // Create a new map and place in the index.html page
                 map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 3,
+                    zoom: 6,
                     center: myLatLng
                 });
-                var opt = { minZoom: 6, maxZoom: 9 };
+                var opt = { minZoom: 6, maxZoom: 17 };
                 map.setOptions(opt);
-                console.log(document.getElementById('map'));
-            }
+
+                //Does a search for gyms
+                var service = new google.maps.places.PlacesService(map);
+                var request = {
+                    location: myLatLng,
+                    radius: 10000, //note this integer is represented as meters
+                    //type: ['gym']
+                    query: newParameters
+
+                };
+                // service.nearbySearch(request, callback);
+                // Set initial location as a bouncing red marker
+                bounds = new google.maps.LatLngBounds();
+                var initialLocation = new google.maps.LatLng(myLatLng.lat, myLatLng.lng);
+                var marker = new google.maps.Marker({
+                    position: initialLocation,
+                    animation: google.maps.Animation.BOUNCE,
+                    map: map,
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+                });
+                console.log(initialLocation);
+                bounds.extend(initialLocation);
+                map.fitBounds(bounds);
+
+                service.textSearch(request, callback);
+
+            // }
 
             // Loop through each location in the array and place a marker
             locations.forEach(function(n, i){
@@ -117,20 +199,14 @@ angular.module('gservice', [])
                 });
             });
 
-            // Set initial location as a bouncing red marker
-            var initialLocation = new google.maps.LatLng(latitude, longitude);
-            var marker = new google.maps.Marker({
-                position: initialLocation,
-                animation: google.maps.Animation.BOUNCE,
-                map: map,
-                icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
-            });
+
+
             //lastMarker = marker;
 
         };
 
     // Refresh the page upon window load. Use the initial latitude and longitude
-    google.maps.event.addDomListener(window, 'load', googleMapService.refresh(selectedLat, selectedLong));
+    //google.maps.event.addDomListener(window, 'load', googleMapService.refresh(selectedLat, selectedLong));
 
     return googleMapService;
 });

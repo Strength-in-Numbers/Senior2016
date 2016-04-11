@@ -13,11 +13,20 @@
       </p>
     </div>
     <div class="row">
-      <p>
-        <a class="btn btn-primary btn-lg" href="http://meanjs.org" target="_blank">Start</a>
-      </p>
+       <form name ="addForm" novalidate>
+          <input type="text" id="addressTextField" class="col-md-6" id="address" placeholder="Enter Address" ng-model="formData.username" required>
+          
+          Type:
+          <select ng-model="selectedType" 
+          ng-options="type.name for type in gymType" placeholder="Type of Gym">
+            
+          </select>
+
+          <button data-ui-sref="map" type="submit" ng-click = "startGservice()" class="btn btn-danger btn-block" ng-disabled="addForm.$invalid">Go</button>
+       </form>
     </div>
   </div>
+
   <!-- <div>
     <h2>Congrats! You've configured and run the sample application.</h2>
     <p>MEAN.JS is a web application boilerplate, which means you should start changing everything :-)</p>
@@ -67,7 +76,7 @@
       <ul>
         <li><a target="_blank" href="http://meanjs.org/docs.html">MEAN.JS Documentation</a>
         </li>
-        <!-- <li><a target="_blank" href="http://meanjs.org/generator.html">Yeoman Generator</a>
+        <li><a target="_blank" href="http://meanjs.org/generator.html">Yeoman Generator</a>
 				</li>
         <li><a target="_blank" href="http://meanjs.org/modules.html">Modules</a>
         </li>

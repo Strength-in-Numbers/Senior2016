@@ -1,46 +1,20 @@
 <section>
-<!-- <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>  -->
-
-<!-- Originally used to reload jquery, (probably placed in the wrong spot)
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js">
-	</script>
-
--->
-
-
-
-
-	<!-- div data-ng-controller = "mapController" ng-init ="initMap()">
-		<div id="searchbox">
-        <label>Enter an address: </label>
-      	</div>
-	    <input id="searchbox.tpl.html" type="text" placeholder="Search Box">
-	    <input id="place_box" type="text" placeholder="Javascript test">
-
-
-		Everything has to go within the google map container
-		<ui-gmap-google-map center='map.center' zoom='map.zoom'>
-			<ui-gmap-search-box template="searchbox.template" events="searchbox.events " position="searchbox.position">
-			</ui-gmap-search-box>
-			
-			<ui-gmap-marker coords="marker.coordinates" idkey="marker.id">
-        	</ui-gmap-marker>
-
-		</ui-gmap-google-map>	    
-    </div> -->
     <div class ="container">
     	<div class="header">
     	</div>
 	    <div class="row" data-ng-controller ="mapCtrl">
 		    <div class ="col-md-5 gymInfo">
 		    	<div ng-repeat="gym in gymLocations">
-		    		<div class="row" style ="height:100px">
+		    		<div class="row infoRow">
 		    			<label for="{{gym.name}}">{{gym.name}}</label>
+		    			<p>{{gym.formatted_address}}</p>
+		    			<p>{{gym.opening_hours}}</p>
+		    			<p>{{gym.rating}}</p>
 		    		</div>
 		    	</div>
 		    </div>
-	    	<div class="col-md-7 mapCanvas">
-	            <div id="map" value ="helloworld"><!-- <img src="http://placehold.it/550x550"> --></div>
+	    	<div class="col-md-7">
+	            <div id="map" class="mapCanvas" value ="helloworld"><!-- <img src="http://placehold.it/550x550"> --></div>
 	        </div>
 	    </div>
     </div>

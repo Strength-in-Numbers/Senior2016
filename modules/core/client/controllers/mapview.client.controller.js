@@ -8,27 +8,25 @@
 //     });
 // })
 
-angular.module('map', ['gservice']).controller('mapCtrl', ['$scope', '$state', 'Authentication', '$http', 'gservice',
-	function ($scope, $state, Authentication, $http, gservice) {
+angular.module('map', ['gservice'])
+.controller('mapCtrl', ['$scope', '$state', 'Authentication', '$http', 'gservice', '$q',
+	function ($scope, $state, Authentication, $http, gservice, $q) {
 	    $scope.formData = {};
 	    var coords = {};
 	    var lat = 0;
 	    var long = 0;
-	    // Set initial coordinates to the center of the US
-	    $scope.formData.latitude = 39.600;
-	    $scope.formData.longitude = -98.550;
+	    $scope.placeList = [];
+	    var deferred = $q.defer();
+	    gservice.init();
+		//gservice.refresh($scope.formData.latitude, $scope.formData.longitude)
 
-	    gservice.refresh($scope.formData.latitude, $scope.formData.longitude);
-	    console.log( gservice.test() );
-	    //console.log (document.getElementById('map'));
-	      //Equipment variables
-	    $scope.gymLocations = [{name:'barbell'}, 
-	          {name:'squat-rack'}, 
-	          {name:'squat-rack1'},
-	          {name:'squat-rack2'},
-	          {name:'squat-rack3'},
-	          {name:'squat-rack4'},
-	          {name:'dumbells'}];
-	    console.log($scope.gymLocations);
+		//I'm going to have to do this all in the factory thing
+		setTimeout(function(){
+			$scope.gymLocations = gservice.getPlaces();
+			console.log($scope.gymLocations);
+			$scope.$apply();
+		}, 2000);
+		
+
 	} // End of function
 ]);
