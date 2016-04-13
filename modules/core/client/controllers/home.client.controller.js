@@ -9,9 +9,9 @@ angular.module('core.map', ['gservice'])
     var autocomplete = new google.maps.places.Autocomplete(input);
     
     $scope.startGservice = function(){
-    	console.log('Hello');
-    	console.log($scope.selectedType);
-    	gservice.grabInput(autocomplete, $scope.selectedType);
+    	// console.log($scope.selectedGymType);
+        gservice.setInput(autocomplete, $scope.selectedGymType, $scope.selectedBusinessType);
+
     };
 
     $scope.gymType = [
@@ -20,16 +20,13 @@ angular.module('core.map', ['gservice'])
         {'name': 'HealthClubs'},
         {'name': 'Dance'},
     ];
-    $scope.selectedType = $scope.gymType[0];
-
-    // $scope.gym_parameters = [
-    //     {'lookupCode': 'CrossFit', 'description': 'Alabama'},
-    //     {'lookupCode': 'HealthClubs', 'description': 'Florida'},
-    //     {'lookupCode': 'Dance', 'description': 'California'}
-    // ];
-
-
-
+    $scope.businessType = [
+        {'name': 'Commerical'},
+        {'name': 'Home'},
+    ];
+    $scope.selectedGymType = $scope.gymType[0];
+    $scope.selectedBusinessType = $scope.businessType[0];
+    
   }
 ]);
 

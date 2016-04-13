@@ -1,94 +1,123 @@
-<section data-ng-controller="HomeController">
-  <div class="jumbotron text-center">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12">
-        <img alt="MEAN.JS" class="img-responsive text-center" src="modules/core/img/brand/strength-in-numbersL.png"/>
-        <!-- <img alt="MEAN.JS" class="img-responsive text-center" src="modules/core/img/brand/strength-in-numbersR.png"/> -->
+<div class="content-main " ng-controller="HomeController">
+  <section class="top">
+    <div class="jumbotron text-center">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12">
+        </div>
       </div>
-    </div>
-    <br>
-    <div class="row">
-      <p class="lead">
-        Start your journey into the world of connected fitness!
-      </p>
-    </div>
-    <div class="row">
-       <form name ="addForm" novalidate>
-          <input type="text" id="addressTextField" class="col-md-6" id="address" placeholder="Enter Address" ng-model="formData.username" required>
-          
-          Type:
-          <select ng-model="selectedType" 
-          ng-options="type.name for type in gymType" placeholder="Type of Gym">
-            
-          </select>
+      <br>
+      <div class="row heading">
+        <h1>
+          Start your journey into the world of connected fitness!
+        </h1>
+      </div>
+    </div> <!-- End Jumbotron Text -->
+    <div class="inputdata">
+        <div class="row data">
+             <form name ="addForm" novalidate>
+                <div class ="form-group">
+                  <input type="text" id="addressTextField" size="100" placeholder="Enter Address" ng-model="formData.username" required>
+                  
+                  <select ng-model="selectedGymType" ng-options="type.name for type in gymType" placeholder="Type of Gym"></select>
+               
+                  <select ng-model="selectedBusinessType" ng-options="type.name for type in businessType" placeholder="Type of Gym"></select>
 
-          <button data-ui-sref="map" type="submit" ng-click = "startGservice()" class="btn btn-danger btn-block" ng-disabled="addForm.$invalid">Go</button>
-       </form>
+                </div>
+                <div class="form-group">
+                    <button data-ui-sref="map" type="submit" ng-click = "startGservice()" class="btn btn-danger btn-block" ng-disabled="addForm.$invalid">Go</button>
+                </div>
+             </form>
+        </div>
     </div>
-  </div>
+  </section>
+   <section class="sections" id="services">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-12 text-center">
+                  <h2 class="section-heading">How it works</h2>
+                  <hr class="primary">
+              </div>
+          </div>
+      </div>
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-6 col-md-6 text-center">
+                  <div class="service-box">
+                      <img src="http://placehold.it/500x500">
+                      <i class="fa fa-4x fa-diamond wow bounceIn text-primary"></i>
+                  </div>
+              </div>
+              <div class="col-lg-6 col-md-6 text-center">
+                  <div class="service-box">
+                      <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary" data-wow-delay=".1s"></i>
+                      <h3>Search for a Gym</h3>
+                      <p class="text-muted">Search for wherever you would like to go to work out</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 text-center">
+                <div class="service-box">
+                    <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary" data-wow-delay=".1s"></i>
+                    <h3>Add a Gym</h3>
+                    <p class="text-muted">If you own a personal gym go ahead and post it</p>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 text-center">
+                <div class="service-box">
+                    <img src="http://placehold.it/500x500">
+                    <i class="fa fa-4x fa-diamond wow bounceIn text-primary"></i>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 text-center">
+                <div class="service-box">
+                    <img src="http://placehold.it/500x500">
+                    <i class="fa fa-4x fa-diamond wow bounceIn text-primary"></i>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 text-center">
+                <div class="service-box">
+                    <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary" data-wow-delay=".1s"></i>
+                    <h3>Check out our app as well!</h3>
+                    <p class="text-muted">This way you can stay mobile while you track your places!</p>
+                </div>
+            </div>
+        </div>
+      </div>
+    </section>
+    <section class="sections" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">About Us</h2>
+                    <hr class="primary">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="col-lg-6 col-sm-6 text-center">
+                <img class="img-circle img-responsive img-center" src="http://placehold.it/200x200" alt="">
+                <h3>Name
+                    <small>Title</small>
+                </h3>
+                <p>What does this team member to? Keep it short! This is also a great spot for social links!</p>
 
-  <!-- <div>
-    <h2>Congrats! You've configured and run the sample application.</h2>
-    <p>MEAN.JS is a web application boilerplate, which means you should start changing everything :-)</p>
-    <p>This sample application tracks users and articles.</p>
-    <ul>
-      <li>
-        Click
-        <em>Signup</em> to get started.
-      </li>
-      <li>
-        Configure your app to work with your social accounts, by editing the
-        <em>/config/env/*.js</em> files.
-      </li>
-      <li>
-        Edit your users module.
-      </li>
-      <li>
-        Add new CRUD modules.
-      </li>
-      <li>
-        Have fun...
-      </li>
-    </ul>
-  </div>
-  <div class="row">
-    <div class="col-md-3">
-      <h2><strong>M</strong>ongoDB</h2>
-      <p><a target="_blank" href="http://mongodb.org/">MongoDB</a> is a database. MongoDB's <a target="_blank" href="http://docs.mongodb.org/manual/">great manual</a> is the place to get started with NoSQL and MongoDB.</p>
-    </div>
-    <div class="col-md-3">
-      <h2><strong>E</strong>xpress</h2>
-      <p><a target="_blank" href="http://expressjs.com/"> Express</a> is an app server. Check out <a target="_blank" href="http://expressjs.com/4x/api.html">The ExpressJS API reference for more information</a> or <a target="_blank" href="http://stackoverflow.com/questions/8144214/learning-express-for-node-js">StackOverflow</a> for more info.</p>
-    </div>
-    <div class="col-md-3">
-      <h2><strong>A</strong>ngularJS</h2>
-      <p>AngularJS is web app framework. <a target="_blank" href="http://angularjs.org/">Angular's website</a> offers a lot. The <a target="_blank" href="http://www.thinkster.io/">Thinkster Popular Guide</a> and <a target="_blank" href="https://egghead.io/">Egghead Videos</a> are great resources.</p>
-    </div>
-    <div class="col-md-3">
-      <h2><strong>N</strong>ode.js</h2>
-      <p><a target="_blank" href="http://nodejs.org/">Node.js</a> is a web server. Node's website and this <a target="_blank" href="http://stackoverflow.com/questions/2353818/how-do-i-get-started-with-node-js">stackOverflow thread</a> offer excellent starting points to get to grasps with node.</p>
-    </div>
-  </div>
-  <div class="well">
-    <h2>MEAN.JS Documentation</h2>
-    <p>
-      Once you're familiar with the foundation technology, check out the MEAN.JS Documentation:
-      <ul>
-        <li><a target="_blank" href="http://meanjs.org/docs.html">MEAN.JS Documentation</a>
-        </li>
-        <li><a target="_blank" href="http://meanjs.org/generator.html">Yeoman Generator</a>
-				</li>
-        <li><a target="_blank" href="http://meanjs.org/modules.html">Modules</a>
-        </li>
-        <li><a target="_blank" href="http://meanjs.org/changelog.html">Changelog</a>
-        </li>
-        <li><a target="_blank" href="http://meanjs.org/community.html">Community</a>
-        </li>
-        <li><a target="_blank" href="http://blog.meanjs.org">Blog</a>
-        </li>
-      </ul>
-    </p>
-  </div> -->
-  <!-- <br>Enjoy &amp; Keep Us Updated, -->
-  <br>The SIN Team.
-</section>
+            </div>
+            <div class="col-lg-6 col-sm-6 text-center">
+                <img class="img-circle img-responsive img-center" src="http://placehold.it/200x200" alt="">
+                <h3>Name
+                    <small>Job Title</small>
+                </h3>
+                <p>What does this team member to? Keep it short! This is also a great spot for social links!</p>
+
+            </div>
+        </div>
+    </section>
+  <!--   <div class="text-center footer">&copy; Strenght in Numbers, 2016.</div> -->
+</div>

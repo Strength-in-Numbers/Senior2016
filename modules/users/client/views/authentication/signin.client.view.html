@@ -1,30 +1,44 @@
 <div data-ng-controller="AuthenticationController">
-  <h3 class="col-md-12 text-center">Or with your account</h3>
-  <div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
-    <form data-ng-submit="signin()" class="signin form-horizontal" autocomplete="off">
-      <fieldset>
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username" class="form-control"
-               data-ng-model="credentials.username" placeholder="Username">
+  <div class="breadcrumbh">
+  </div>
+  <div class="content-main">
+    <!-- username and password entry -->
+    <div class="image-logo">
+        <img class="img-circle img-responsive img-center" src="../img/profile/uploads/logo.png" alt="">
+    </div>
+    <form ng-submit="signin(true)">
+        <div class="container topmargin-50">
+            <div align="center">
+              <div class="inputs">
+                 <input type="text" ng-model="credentials.username" placeholder="Username" required style="height:40px;">
+                 </div>
+                 <div class="inputs">
+                 <input type="password" ng-model="credentials.password" placeholder="Password" required style="height:40px;">
+                 </div>
+            </div>
         </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" class="form-control"
-               data-ng-model="credentials.password" placeholder="Password">
+        
+        <!-- log-in button -->
+        <div class="topmargin-10" style="text-align:center;">
+            <!--modal-->
+            
+            <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header">
+            <h3>Attempting to Log-in...</h3>
+            </div>
+      </script>
+            
+            <!--login button-->
+            <button type="submit" ng-click="open()" class="btn btn-default">
+                Log-in
+            </button>
+            <div ng-show="selected">Selection from a modal: {{ selected }}</div>
         </div>
-        <div class="text-center form-group">
-          <button type="submit" class="btn btn-primary">Sign in</button>
-          &nbsp; or&nbsp;
-          <a data-ui-sref="authentication.signup">Sign up</a>
-        </div>
-        <div class="text-center forgot-password">
-          <a data-ui-sref="password.forgot">Forgot your password?</a>
-        </div>
-        <alert type="danger" data-ng-show="error" class="text-center text-danger">
-          <span data-ng-bind="error"></span>
-        </alert>
-      </fieldset>
     </form>
+    
+    <!-- register link -->
+    <div class="registerLink topmargin-10" style="text-align:center;">
+        <a data-ui-sref="authentication.signup">Don't have an account? Click here to register.</a>
+    </div>
   </div>
 </div>

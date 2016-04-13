@@ -12,6 +12,12 @@ var path = require('path'),
 /**
  * Create a gym location
  */
+exports.list = function (req, res) {
+  GymSchema.find().exec(function(err, questions) {
+    return res.end(JSON.stringify(questions));
+  });
+};
+
 exports.create = function(req, res) {
 
   var gym = new GymSchema(req.body);
@@ -26,3 +32,4 @@ exports.create = function(req, res) {
     }
   });
 };
+

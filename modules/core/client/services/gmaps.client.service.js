@@ -18,67 +18,84 @@ angular.module('gservice', [])
         var newParameters = 'gym';
         var map;
         var bounds;
+        var isCommericial = true;
 
         // Functions
         // --------------------------------------------------------------
-        // Refresh the Map with new data. Function will take new latitude and longitude coordinates.
-        googleMapService.refresh = function(latitude, longitude){
-            // Clears the holding array of locations
-            locations = [];
+        // // Refresh the Map with new data. Function will take new latitude and longitude coordinates.
+        // googleMapService.refresh = function(latitude, longitude){
+        //     // Clears the holding array of locations
+        //     locations = [];
 
-            // Set the selected lat and long equal to the ones provided on the refresh() call
-            selectedLat = latitude;
-            selectedLong = longitude;
-            initialize(latitude, longitude);
-            // // Perform an AJAX call to get all of the records in the db.
-            // $http.get('/users').success(function(response){
+        //     // Set the selected lat and long equal to the ones provided on the refresh() call
+        //     selectedLat = latitude;
+        //     selectedLong = longitude;
+        //     initialize(latitude, longitude);
+        //     // // Perform an AJAX call to get all of the records in the db.
+        //     // $http.get('/users').success(function(response){
 
-            //     // Convert the results into Google Map Format
-            //     //locations = convertToMapPoints(response);
+        //     //     // Convert the results into Google Map Format
+        //     //     //locations = convertToMapPoints(response);
 
-            //     // Then initialize the map.
-            //     initialize(latitude, longitude);
-            // }).error(function(){});
-            console.log('Gym list: ' + gymPlacesList);
+        //     //     // Then initialize the map.
+        //     //     initialize(latitude, longitude);
+        //     // }).error(function(){});
+        //     console.log('Gym list: ' + gymPlacesList);
 
-        };
+        // };
         googleMapService.getPlaces = function(){
             return gymPlacesList;
         };
         googleMapService.init = function(){
             initialize(selectedLat, selectedLong);
         };
-        googleMapService.grabInput = function(searchBox, inputParameters){
+        googleMapService.setInput = function(searchBox, inputParameters, businessType){
             var place = searchBox.getPlace();
             var newLatLng = place.geometry.location;
             selectedLat = newLatLng.lat();
             selectedLong = newLatLng.lng();
-            console.log('New LTLNG:' + selectedLat + selectedLong);
-            
-            console.log(inputParameters);
             if (inputParameters.name !== 'All'){
                 newParameters = inputParameters.name;
             }else {
-                console.log('is equal to All');
+                newParameters = 'gym';
             }
+            if (businessType.name === 'Commerical'){
+                isCommericial = true;
+            }else {
+                isCommericial = false;
+                
+                // $http.get('/api/gym').success(function(response){
+                //     console.log(response);
+                // // Convert the results into Google Map Format
+                // //locations = convertToMapPoints(response);
+
+                // // Then initialize the map.
+                // //initialize(latitude, longitude);
+                // }).error(function(){
+                //     console.log("Error occured");
+                // });
+            }
+
+            //Initalized is called after the inputs are set
+            //initialize(selectedLat, selectedLong);
         };
         // Private Inner Functions
         // --------------------------------------------------------------
         //Callback on nearby search request
         var callback = function(results, status) {
             var locations = [];
+            var maxSize = 5;
             if (status === google.maps.places.PlacesServiceStatus.OK) {
                 console.log('Status request succeed, result is length: ' + results.length);
-                createMarkers(results);
-                gymPlacesList = results;
+                gymPlacesList = results.slice(0, maxSize);
+                createMarkers(gymPlacesList);
             }else{
                 console.log('Status request failed');
             }
         };
         var createMarkers = function(places) {
             //var placesList = document.getElementById('places');
-            var maxPlaces = 5;
-            for (var i = 0, place; i < places.length && i < maxPlaces; i++) {
+            for (var i = 0, place; i < places.length; i++) {
                 place = places[i];
                 //Image will hopefully represent a gym? might change to default marker
                 var image = {
@@ -88,12 +105,17 @@ angular.module('gservice', [])
                     anchor: new google.maps.Point(17, 34),
                     scaledSize: new google.maps.Size(25, 25)
                 };
-
+                var infowindow = new google.maps.InfoWindow();
                 var marker = new google.maps.Marker({
                     map: map,
                     icon: image, // 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' //replace for default icon
                     title: place.name,
                     position: place.geometry.location
+                });
+                google.maps.event.addListener(marker, 'click', function() {
+                    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + 
+                      place.formatted_address + '</div>');
+                    infowindow.open(map, this);
                 });
 
                 //placesList.innerHTML += '<li>' + place.name + '</li>';
@@ -102,7 +124,7 @@ angular.module('gservice', [])
             }
             map.fitBounds(bounds);
         };
-        // Convert a JSON of users into map points
+        // Convert a JSON of user submitted places into map points
         var convertToMapPoints = function(response){
 
             // Clear the locations holder
@@ -143,65 +165,60 @@ angular.module('gservice', [])
             // Uses the selected lat, long as starting point
             var myLatLng = {lat: latitude, lng: longitude};
             //var myLatLng = {lat: 29.651, lng: -82.324};
-            // If map has not been created already...
-            //if (!map){
 
-                // Create a new map and place in the index.html page
-                map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 6,
-                    center: myLatLng
-                });
-                var opt = { minZoom: 6, maxZoom: 17 };
-                map.setOptions(opt);
+            console.log('newParameters: ' + newParameters);
+            // Create a new map and place in the index.html page
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 6,
+                center: myLatLng
+            });
+            var opt = { minZoom: 6, maxZoom: 17 };
+            map.setOptions(opt);
+            bounds = new google.maps.LatLngBounds();
+            var initialLocation = new google.maps.LatLng(myLatLng.lat, myLatLng.lng);
+            var marker = new google.maps.Marker({
+                position: initialLocation,
+                animation: google.maps.Animation.BOUNCE,
+                map: map,
+                icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+            });
+            bounds.extend(initialLocation);
+            map.fitBounds(bounds);
 
+            if (isCommericial) {
                 //Does a search for gyms
                 var service = new google.maps.places.PlacesService(map);
                 var request = {
                     location: myLatLng,
                     radius: 10000, //note this integer is represented as meters
                     //type: ['gym']
-                    query: newParameters
+                    query: newParameters,
+                    openNow: true //optional query
 
                 };
                 // service.nearbySearch(request, callback);
-                // Set initial location as a bouncing red marker
-                bounds = new google.maps.LatLngBounds();
-                var initialLocation = new google.maps.LatLng(myLatLng.lat, myLatLng.lng);
-                var marker = new google.maps.Marker({
-                    position: initialLocation,
-                    animation: google.maps.Animation.BOUNCE,
-                    map: map,
-                    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
-                });
-                console.log(initialLocation);
-                bounds.extend(initialLocation);
-                map.fitBounds(bounds);
-
                 service.textSearch(request, callback);
+            }else {
+                console.log("starting doing home stuff");
+                // Loop through each location in the array and place a marker
+                gymPlacesList = locations;
+                locations.forEach(function(n, i){
+                    var marker = new google.maps.Marker({
+                        position: n.latlon,
+                        map: map,
+                        title: 'Big Map',
+                        icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                    });
 
-            // }
+                    // For each marker created, add a listener that checks for clicks
+                    google.maps.event.addListener(marker, 'click', function(e){
 
-            // Loop through each location in the array and place a marker
-            locations.forEach(function(n, i){
-                var marker = new google.maps.Marker({
-                    position: n.latlon,
-                    map: map,
-                    title: 'Big Map',
-                    icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                        // When clicked, open the selected marker's message
+                        currentSelectedMarker = n;
+                        n.message.open(map, marker);
+                    });
                 });
-
-                // For each marker created, add a listener that checks for clicks
-                google.maps.event.addListener(marker, 'click', function(e){
-
-                    // When clicked, open the selected marker's message
-                    currentSelectedMarker = n;
-                    n.message.open(map, marker);
-                });
-            });
-
-
-
-            //lastMarker = marker;
+            }
 
         };
 

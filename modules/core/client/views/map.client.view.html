@@ -1,20 +1,19 @@
 <section>
-    <div class ="container">
-    	<div class="header">
-    	</div>
+    <div class ="content-main">
 	    <div class="row" data-ng-controller ="mapCtrl">
+		    <div class="map-main">
 		    <div class ="col-md-5 gymInfo">
 		    	<div ng-repeat="gym in gymLocations">
 		    		<div class="row infoRow">
 		    			<label for="{{gym.name}}">{{gym.name}}</label>
 		    			<p>{{gym.formatted_address}}</p>
-		    			<p>{{gym.opening_hours}}</p>
 		    			<p>{{gym.rating}}</p>
 		    		</div>
 		    	</div>
 		    </div>
 	    	<div class="col-md-7">
 	            <div id="map" class="mapCanvas" value ="helloworld"><!-- <img src="http://placehold.it/550x550"> --></div>
+	        </div>
 	        </div>
 	    </div>
     </div>

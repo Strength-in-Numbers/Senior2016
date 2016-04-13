@@ -33,7 +33,7 @@ exports.signup = function (req, res) {
   // Then save the user
   user.save(function (err) {
     if (err) {
-      return res.status(400).send({
+      return res.status(500).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
