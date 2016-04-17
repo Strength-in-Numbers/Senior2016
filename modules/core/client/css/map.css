@@ -11,9 +11,20 @@
 .gymInfo {
 	overflow: scroll;
 	height:500px;
+	padding-left:50px;
+	padding-top:10px;
+	background-color: #F5F5F5;
+
 }
-.infoRow {
-	border-style: solid;
+.info-row {
+
+	/*border-style: solid;*/
+
+}
+.info-row .text {
+	margin-top:10px;
+	margin-left: 20px;
+	font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
 }
 .map{
 	width:100%;

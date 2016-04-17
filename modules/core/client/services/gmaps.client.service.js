@@ -15,6 +15,7 @@ angular.module('gservice', [])
         // Selected Location (initialize to center of America)
         var selectedLat = 29.651;
         var selectedLong = -82.324;
+        var initialPlace;
         var newParameters = 'gym';
         var map;
         var bounds;
@@ -43,6 +44,39 @@ angular.module('gservice', [])
         //     console.log('Gym list: ' + gymPlacesList);
 
         // };
+
+        // googleMapService.testMap = function(){
+        //   var directionsService = new google.maps.DirectionsService;
+        //   var directionsDisplay = new google.maps.DirectionsRenderer;
+        //   var map = new google.maps.Map(document.getElementById('map'), {
+        //     zoom: 7,
+        //     center: {lat: 41.85, lng: -87.65}
+        //   });
+        //   directionsDisplay.setMap(map);
+        //   calculateAndDisplayRoute(directionsService, directionsDisplay);
+          
+        //   // document.getElementById('start').addEventListener('change', onChangeHandler);
+        //   // document.getElementById('end').addEventListener('change', onChangeHandler);
+        // }
+
+        // var calculateAndDisplayRoute = function(directionsService, directionsDisplay) {
+        //   directionsService.route({
+        //     origin: {lat: 41.85, lng: -87.65},
+        //     destination: {lat: 29.651, lng: -82.324},
+        //     travelMode: google.maps.TravelMode.DRIVING
+        //   }, function(response, status) {
+        //     if (status === google.maps.DirectionsStatus.OK) {
+        //       directionsDisplay.setDirections(response);
+        //     } else {
+        //       window.alert('Directions request failed due to ' + status);
+        //     }
+        //   });
+        // }
+        //End of testing
+
+        googleMapService.isCommericial = function(){
+            return isCommericial;
+        }
         googleMapService.getPlaces = function(){
             return gymPlacesList;
         };
@@ -50,8 +84,8 @@ angular.module('gservice', [])
             initialize(selectedLat, selectedLong);
         };
         googleMapService.setInput = function(searchBox, inputParameters, businessType){
-            var place = searchBox.getPlace();
-            var newLatLng = place.geometry.location;
+            var init = searchBox.getPlace();
+            var newLatLng = init.geometry.location;
             selectedLat = newLatLng.lat();
             selectedLong = newLatLng.lng();
             if (inputParameters.name !== 'All'){
@@ -59,6 +93,7 @@ angular.module('gservice', [])
             }else {
                 newParameters = 'gym';
             }
+            initialPlace = searchBox.getPlace();
             if (businessType.name === 'Commerical'){
                 isCommericial = true;
             }else {
@@ -79,6 +114,34 @@ angular.module('gservice', [])
             //Initalized is called after the inputs are set
             //initialize(selectedLat, selectedLong);
         };
+        googleMapService.setRoute = function(location){
+            console.log(location);
+            var directionsService = new google.maps.DirectionsService;
+            var directionsDisplay = new google.maps.DirectionsRenderer;
+            directionsDisplay.setMap(map);
+            directionsDisplay.setPanel(document.getElementById('directions-panel'));
+            getRoute({lat: selectedLat, lng: selectedLong}, location, google.maps.TravelMode.DRIVING,directionsService, directionsDisplay)
+        };
+        var getRoute = function(origin_place, destination_place, travel_mode, directionsService, directionsDisplay) {
+
+            if (!origin_place || !destination_place) {
+              return;
+            }
+            directionsService.route({
+              // origin: {'placeId': origin_place_id},
+              // destination: {'placeId': destination_place_id},
+              origin: origin_place,
+              destination: destination_place,
+              travelMode: google.maps.TravelMode.DRIVING
+            }, function(response, status) {
+              if (status === google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(response);
+              } else {
+                window.alert('Directions request failed due to ' + status);
+              }
+            });
+        };
+        
         // Private Inner Functions
         // --------------------------------------------------------------
         //Callback on nearby search request

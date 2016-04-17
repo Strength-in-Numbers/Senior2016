@@ -40,7 +40,9 @@
                 <!-- Submit button. Note that its tied to createUser() function from addCtrl. Also note ng-disabled logic which prevents early submits.  -->
                 <button type="submit" ng-click = "createPost()" class="btn btn-danger btn-block" ng-disabled="addForm.$invalid">Submit</button>
 
-                <button type="submit" ng-click = "getPost()" class="btn btn-danger btn-block">Go</button>
+                <button type="submit" ng-click = "get()" class="btn btn-danger btn-block">GET</button>
+                <button type="submit" ng-click = "post()" class="btn btn-danger btn-block">POST</button>
+
 
             </form>
         </div>

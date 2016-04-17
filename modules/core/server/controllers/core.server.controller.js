@@ -1,5 +1,9 @@
 'use strict';
 
+var mongoose = require('mongoose'),
+  GymSchema = mongoose.model('GymSchema');
+
+
 /**
  * Render the main application page
  */
@@ -38,5 +42,11 @@ exports.renderNotFound = function (req, res) {
     'default': function () {
       res.send('Path not found');
     }
+  });
+};
+
+exports.list = function(req, res) {
+  GymSchema.find({}, function(err, subs) {
+    return res.end(JSON.stringify(subs));
   });
 };

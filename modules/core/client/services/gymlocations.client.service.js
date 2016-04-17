@@ -2,7 +2,7 @@
 
 angular.module('core').factory('GymLocations', ['$resource',
   function ($resource) {
-    return $resource('/gym', {}, {
+    return $resource('/api/gym', {}, {
       update: {
         method: 'GET'
       }

@@ -52,7 +52,7 @@ h6 {
 .jumbotron {
     padding-top:100px;
     position: relative;
-    background: #000 url("../img/header.jpg") center center;
+    background: #000 url("../img/banner-bg.png") center center;
     background-position: center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -95,6 +95,11 @@ h6 {
 .img-center {
   margin: 0 auto;
 }
+
+
+
+
+
 
 .footer {
   width:100%;

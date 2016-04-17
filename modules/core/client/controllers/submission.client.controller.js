@@ -63,21 +63,33 @@ angular.module('core').controller('subCtrl', ['$scope', '$state', 'Authenticatio
     var input = document.getElementById('formAddressField');
     var autocomplete = new google.maps.places.Autocomplete(input);
     
-    $scope.getPost = function getPost(){
-      console.log("Get function is called");
-      $scope.locations = GymLocations.update();
-      console.log($scope.locations);
-      $http.get('/gym').then(
-        function(response) {
-            console.log(response.data);
-        },
-        function(data) {
-          console.log(data);
+    $scope.post = function postFunciton(){
+         var studentGrades = {
+          username: 'David'
+
+        };
+        
+        $http.post('/api/gym/post', studentGrades)
+        .success(function(res){
+          console.log (res);
+        });
+    }
+    $scope.get = function getPost(){
+          //Retrieves all of the questions and stores it to a scope
+      $http.get('/api/gym/list')
+      .success(function(res){
+        $scope.data = res;
       });
-      // $http.get('/api/gymType', {}).then(function(response){
-      //     //console.log(response);
-      // }).error(function(){
-      //     console.log("Error occured");
+
+      // console.log("Get function is called");
+      // $scope.locations = GymLocations.update();
+      // console.log($scope.locations);
+      // $http.get('/gym').then(
+      //   function(response) {
+      //       console.log(response.data);
+      //   },
+      //   function(data) {
+      //     console.log(data);
       // });
     };
 

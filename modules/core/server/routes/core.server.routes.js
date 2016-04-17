@@ -14,7 +14,9 @@ module.exports = function (app) {
   // Define application route
   app.route('/*').get(core.renderIndex);
 
-  app.route('/api/gym')
-    .post(gym.create);
-  app.route('/gym').get(gym.list);
+  app.route('/api/gym/post').post(gym.create);
+
+
+  app.route('/api/gym/list').get(core.list)
+
 };

@@ -38,14 +38,21 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRG9AD9clExYC9enzvFEDJxNpxB84MBzw&libraries=places"></script>
 </head>
 
-<body class="ng-cloak">
+<body>
   <header data-ng-include="'/modules/core/views/header.client.view.html'" class="navbar navbar-fixed-top"></header>
       {% block content %}{% endblock %}
 
-  <div class="text-center footer">&copy; Strenght in Numbers, 2016.</div>
+  <div class="text-center footer">&copy; Strength in Numbers, 2016.</div>
+
   <!--Embedding The User Object-->
   <script type="text/javascript">
     var user = {{ user | json | safe }};
+  </script>
+  
+    <!-- jQuery for Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- Bootstrap JS -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous">
   </script>
   
   <!--Load The Socket.io File-->

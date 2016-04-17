@@ -12,11 +12,6 @@ var path = require('path'),
 /**
  * Create a gym location
  */
-exports.list = function (req, res) {
-  GymSchema.find().exec(function(err, questions) {
-    return res.end(JSON.stringify(questions));
-  });
-};
 
 exports.create = function(req, res) {
 
@@ -33,3 +28,9 @@ exports.create = function(req, res) {
   });
 };
 
+
+exports.getList = function(req, res) {
+  GymSchema.find({}, function(err, subs) {
+    return res.end(JSON.stringify(subs));
+  });
+};
