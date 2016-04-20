@@ -1,35 +1,34 @@
 <div class="container" data-ng-controller="HeaderController">
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-padding">
         <a class="navbar-brand" data-ui-sref="home">
+            <img href="modules/core/img/brand/dumbbell.png">
             Strength in Numbers
         </a>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="page-scroll" href="#services">About</a>
+                            <a class="page-scroll" href="#about">About</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#contact">Contact</a>
+                            <a class="page-scroll" href="#contact">Contact</a>
                     </li>
                     <!-- Profile -->
-                    <li>
-                        <div ng-show="authentication.user" class="navbar-brand pull-right" data-ui-sref="profile">
+                    <li ng-show="authentication.user">
+                        <a data-ui-sref="profile">
+                    
                             {{authentication.user.displayName}}
-                        </div>
+                        </a>
                     </li>
-                    <li>
-                        <div ng-hide="authentication.user" class="navbar-brand pull-right" data-ui-sref="authentication.signin">
-                            Login
-                        </div>
+                    <li ng-hide="authentication.user">
+                    <a data-ui-sref="authentication.signin">Login</a>
+                       
                     </li>
-                    <li>
-                        <div ng-hide="authentication.user" class="navbar-brand pull-right" data-ui-sref="authentication.signup">Signup
-                        </div>
+                    <li ng-hide="authentication.user">
+                        <a data-ui-sref="authentication.signup">Signup</a>
                     </li>
-                    <li>
-                        <div ng-show="authentication.user" class="navbar-brand pull-right" ng-click="logout()">
-                            Logout
-                        </div>
+                    <li ng-show="authentication.user">
+                        <a ng-click="logout()">Logout</a>
+                        
                     </li>
                 </ul>
             </div>

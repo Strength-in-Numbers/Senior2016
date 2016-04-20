@@ -1,7 +1,41 @@
 .profile-content{
-	margin-top:100px;
-}
+	padding:100px;
+/*	border-style: solid;
+*/}
 
 .panel-body{
-	padding:100px;
+	border-style: solid;
+	border-width: 1px;
+	padding:50px;
+}
+.profile-side{
+/*	border-style: solid;
+	border-width:1px;*/
+}
+.profile-side .profile-image{
+	margin-bottom: 50px;
+}
+
+.profile-sections{
+	margin-bottom:10px;
+}
+
+.profile-sections .profile-heading {
+	margin-top:0px;
+	background-color: #FFF;
+	border-style: solid;
+	border-width:1px;
+	padding-left:20px;
+	margin-bottom: 10px;
+}
+.profile-sections .profile-heading h1 {
+	margin-top: 10px;
+}
+.profile-sections .profile-body {
+	background-color: #FFF;
+	border-style: solid;
+	border-width:1px;
+	padding-left:20px;
+	padding-top:10px;
+	margin-bottom: 10px;
 }

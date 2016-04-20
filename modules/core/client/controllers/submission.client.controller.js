@@ -39,9 +39,8 @@ angular.module('core').controller('subCtrl', ['$scope', '$state', 'Authenticatio
         var userData = {
             username: $scope.formData.username,
             equipment: $scope.selection,
-            location: [$scope.formData.longitude, $scope.formData.latitude],
             description: $scope.formData.description,
-            images: $scope.formData.image
+            number: $scope.formData.number
         };
         console.log(userData);
 

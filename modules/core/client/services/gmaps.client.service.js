@@ -20,6 +20,10 @@ angular.module('gservice', [])
         var map;
         var bounds;
         var isCommericial = true;
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var markers = [];
+        var currentSelectedMarker;
 
         // Functions
         // --------------------------------------------------------------
@@ -81,6 +85,8 @@ angular.module('gservice', [])
             return gymPlacesList;
         };
         googleMapService.init = function(){
+            directionsService = new google.maps.DirectionsService;
+            directionsDisplay = new google.maps.DirectionsRenderer;
             initialize(selectedLat, selectedLong);
         };
         googleMapService.setInput = function(searchBox, inputParameters, businessType){
@@ -114,14 +120,21 @@ angular.module('gservice', [])
             //Initalized is called after the inputs are set
             //initialize(selectedLat, selectedLong);
         };
+        googleMapService.setPanel = function(){
+            console.log("Function set panel is called");
+            directionsDisplay.setPanel(document.getElementById('directions-panel'));
+        }
         googleMapService.setRoute = function(location){
             console.log(location);
-            var directionsService = new google.maps.DirectionsService;
-            var directionsDisplay = new google.maps.DirectionsRenderer;
+            setMapOnAll(null);
             directionsDisplay.setMap(map);
-            directionsDisplay.setPanel(document.getElementById('directions-panel'));
             getRoute({lat: selectedLat, lng: selectedLong}, location, google.maps.TravelMode.DRIVING,directionsService, directionsDisplay)
         };
+          var setMapOnAll = function(map) {
+            for (var i = 0; i < markers.length; i++) {
+              markers[i].setMap(map);
+            }
+          }
         var getRoute = function(origin_place, destination_place, travel_mode, directionsService, directionsDisplay) {
 
             if (!origin_place || !destination_place) {
@@ -175,10 +188,21 @@ angular.module('gservice', [])
                     title: place.name,
                     position: place.geometry.location
                 });
+                markers.push(marker);
                 google.maps.event.addListener(marker, 'click', function() {
+      
+                        // For each marker created, add a listener that checks for clicks
+                // google.maps.event.addListener(marker, 'click', function(e){
+
+                //     // When clicked, open the selected marker's message
+                //     currentSelectedMarker = n;
+                //     n.message.open(map, marker);
+                // });
+
                     infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + 
                       place.formatted_address + '</div>');
                     infowindow.open(map, this);
+                
                 });
 
                 //placesList.innerHTML += '<li>' + place.name + '</li>';
@@ -247,6 +271,7 @@ angular.module('gservice', [])
             });
             bounds.extend(initialLocation);
             map.fitBounds(bounds);
+            markers.push(marker);
 
             if (isCommericial) {
                 //Does a search for gyms

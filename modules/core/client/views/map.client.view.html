@@ -5,7 +5,7 @@
 			    <div class ="col-md-5 gymInfo">
 			    	<div ng-repeat="gym in gymLocations">
 			    		<div class="row info-row ">
-			    			<img class="img-center" src="http://placehold.it/300x200"><br>
+			    			<img class="img-center image-limit-post" src="https://www.localfitness.com.au/images/centres/14/14_front_dohertys-gym-83-cheltenham-rd-dandenong_orig_frontL.jpg"><br>
 			    			<div class="text">
 				    			<!-- <span class="glyphicon glyphicon-envelope"></span> -->
 				    			<label for="{{gym.name}}">{{gym.name}}</label>
@@ -15,24 +15,23 @@
 			    			</div>
 			    			<br>
 			    			<button class="btn btn-danger" ng-click="startDirections(gym)">Directions</button>
-			    			<button class="btn btn-danger" ng-click="openDirections()">Print</button>
+			    			<button class="btn btn-info" ng-show="printDirections" ng-click="openDirections()">Print</button>
 			    		</div>
 			    	</div>
 			    </div>
 		    	<div class="col-md-7">
 		            <div id="map" class="mapCanvas" value ="helloworld"><!-- <img src="http://placehold.it/550x550"> --></div>
 		        </div>
-		        <div id="directions-panel"></div>
 	        </div>
 	        <script type="text/ng-template" id="myModalContent.html">
 		        <div class="modal-header">
-		            <h3 class="modal-title">I'm a modal!</h3>
+		            <h3 class="modal-title">Directions</h3>
 		        </div>
 		        <div class="modal-body">
 		        	<div id="directions-panel"></div>
 		        </div>
 		        <div class="modal-footer">
-		            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+		            <button class="btn btn-primary" type="button" ng-click="ok()">Show!</button>
 		            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
 		        </div>
 		    </script>

@@ -1,20 +1,23 @@
 <div data-ng-controller="AuthenticationController">
-  <div class="breadcrumbh">
-  </div>
   <div class="content-main">
     <!-- username and password entry -->
-    <div class="image-logo">
-        <img class="img-circle img-responsive img-center" src="../img/profile/uploads/logo.png" alt="">
+    <div class="signIn-Top">
     </div>
+    <div class="image-logo">
+        <img class="img-circle img-responsive img-center" src="modules/core/img/brand/strength-in-numbersL.png" alt="">
+    </div>
+    <br>
     <form ng-submit="signin(true)">
         <div class="container topmargin-50">
             <div align="center">
               <div class="inputs">
                  <input type="text" ng-model="credentials.username" placeholder="Username" required style="height:40px;">
                  </div>
+                 <br>
                  <div class="inputs">
                  <input type="password" ng-model="credentials.password" placeholder="Password" required style="height:40px;">
                  </div>
+                 <br>
             </div>
         </div>
         
@@ -23,10 +26,10 @@
             <!--modal-->
             
             <script type="text/ng-template" id="myModalContent.html">
-            <div class="modal-header">
-            <h3>Attempting to Log-in...</h3>
-            </div>
-      </script>
+              <div class="modal-header">
+              <h3>Attempting to Log-in...</h3>
+              </div>
+            </script>
             
             <!--login button-->
             <button type="submit" ng-click="open()" class="btn btn-default">
@@ -40,5 +43,8 @@
     <div class="registerLink topmargin-10" style="text-align:center;">
         <a data-ui-sref="authentication.signup">Don't have an account? Click here to register.</a>
     </div>
+  <div class="signIn-bottom">
   </div>
+  </div>
+
 </div>

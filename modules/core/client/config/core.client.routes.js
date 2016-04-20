@@ -23,7 +23,10 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       })
       .state('profile', {
         url: '/profile',
-        templateUrl: 'modules/core/views/profile.client.view.html'
+        templateUrl: 'modules/core/views/profile.client.view.html',
+        params: {
+          isSuccess: false
+        }
       })
       .state('not-found', {
         url: '/not-found',

@@ -3,6 +3,20 @@
     position: fixed;
   }
 }
+.offset-main {
+  margin-top: 50px;
+  margin-bottom:100px;
+}
+.offset-bottom {
+  margin-top: 50px;
+  margin-bottom:415px;
+}
+.signIn-Top {
+  padding-top: 100px;
+}
+.signIn-bottom {
+  margin-bottom: 140px;
+}
 .social-account-container {
   display: inline-block;
   position: relative;
@@ -26,7 +40,6 @@
   text-align: right;
   filter: alpha(opacity=0);
   opacity: 0;
-  background: white;
   cursor: inherit;
   display: block;
 }
@@ -37,10 +50,3 @@
 
 /*My Stuff*/
 
-.breadcrumbh {
-  background: #FC252B;
-  font-family: AwesomeFont, Verdana, Geneva, sans-serif !important;
-  margin-bottom: 70px;
-  min-width: 100%;
-  display: inline-block;
-}

@@ -18,9 +18,9 @@
                 <div class ="form-group">
                   <input type="text" id="addressTextField" size="100" placeholder="Enter Address" ng-model="formData.username" required>
                   
-                  <select ng-model="selectedGymType" ng-options="type.name for type in gymType" placeholder="Type of Gym"></select>
+                  <select class="pull-right" ng-model="selectedGymType" ng-options="type.name for type in gymType" placeholder="Type of Gym"></select>
                
-                  <select ng-model="selectedBusinessType" ng-options="type.name for type in businessType" placeholder="Type of Gym"></select>
+                  <select class="pull-right" ng-model="selectedBusinessType" ng-options="type.name for type in businessType" placeholder="Type of Gym"></select>
 
                 </div>
                 <div class="form-group">
@@ -30,11 +30,11 @@
         </div>
     </div>
   </section>
-   <section class="sections" id="services">
+   <section class="sections" id="about">
       <div class="container">
           <div class="row">
               <div class="col-lg-12 text-center">
-                  <h2 class="section-heading">How it works</h2>
+                  <h2 class="section-heading"> How it works</h2> 
                   <hr class="primary">
               </div>
           </div>
@@ -43,15 +43,15 @@
           <div class="row">
               <div class="col-lg-6 col-md-6 text-center">
                   <div class="service-box">
-                      <img src="http://placehold.it/500x500">
-                      <i class="fa fa-4x fa-diamond wow bounceIn text-primary"></i>
+                    <img class="image-limit" src="modules/core/img/servicemap.jpg">
                   </div>
               </div>
               <div class="col-lg-6 col-md-6 text-center">
                   <div class="service-box">
-                      <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary" data-wow-delay=".1s"></i>
-                      <h3>Search for a Gym</h3>
-                      <p class="text-muted">Search for wherever you would like to go to work out</p>
+                      <div class="text-box">
+                        <h3>Search for a Gym</h3>
+                        <p class="text-muted">Search for wherever you would like to go to work out</p>
+                      </div>
                   </div>
               </div>
           </div>
@@ -60,15 +60,15 @@
         <div class="row">
             <div class="col-lg-6 col-md-6 text-center">
                 <div class="service-box">
-                    <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary" data-wow-delay=".1s"></i>
-                    <h3>Add a Gym</h3>
-                    <p class="text-muted">If you own a personal gym go ahead and post it</p>
+                    <div class="text-box">
+                      <h3>Add a Gym</h3>
+                      <p class="text-muted">If you own a personal gym go ahead and post it</p>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 text-center">
                 <div class="service-box">
-                    <img src="http://placehold.it/500x500">
-                    <i class="fa fa-4x fa-diamond wow bounceIn text-primary"></i>
+                     <img class="image-limit" src="http://bw-bc5fcb0018cecacba559dc512740091b-bwcore.s3.amazonaws.com/articles/theSET2.jpg">
                 </div>
             </div>
         </div>
@@ -77,15 +77,15 @@
         <div class="row">
             <div class="col-lg-6 col-md-6 text-center">
                 <div class="service-box">
-                    <img src="http://placehold.it/500x500">
-                    <i class="fa fa-4x fa-diamond wow bounceIn text-primary"></i>
+                    <img class="image-limit" src="http://cms.bbcomcdn.com/fun/images/2011/5-ways-make-your-gym-mecca-of-muscle_c.jpg">
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 text-center">
                 <div class="service-box">
-                    <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary" data-wow-delay=".1s"></i>
-                    <h3>Check out our app as well!</h3>
-                    <p class="text-muted">This way you can stay mobile while you track your places!</p>
+                    <div class="text-box">
+                      <h3>Check out our app as well!</h3>
+                      <p class="text-muted">This way you can stay mobile while you track your places!</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -102,7 +102,7 @@
         </div>
         <div class="container">
             <div class="col-lg-6 col-sm-6 text-center">
-                <img class="img-circle img-responsive img-center" src="http://placehold.it/200x200" alt="">
+                <img class="img-size img-circle img-responsive img-center" src="modules/core/img/davepic.png" alt="">
                 <h3>David Yeung
                     <small>Developer</small>
                 </h3>
@@ -110,7 +110,7 @@
 
             </div>
             <div class="col-lg-6 col-sm-6 text-center">
-                <img class="img-circle img-responsive img-center" src="http://placehold.it/200x200" alt="">
+                <img class="img-size img-circle img-responsive img-center" src="modules/core/img/bsnave.png" alt="">
                 <h3>Bryan Snavely
                     <small>Developer</small>
                 </h3>
@@ -119,5 +119,4 @@
             </div>
         </div>
     </section>
-  <!--   <div class="text-center footer">&copy; Strenght in Numbers, 2016.</div> -->
 </div>

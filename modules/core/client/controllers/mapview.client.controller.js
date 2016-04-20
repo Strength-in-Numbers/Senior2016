@@ -27,18 +27,18 @@ angular.module('map', ['gservice' , 'ui.bootstrap'])
 	    var deferred = $q.defer();
 	    gservice.init();
 		$scope.printDirections = false;
-		$scope.directions = "123";
 		$scope.openDirections = function (size) {
+			$scope.printDirections = false;
 			var modalInstance = $modal.open({
 			  templateUrl: 'myModalContent.html',
 			   controller: function($scope, $modalInstance) {
-			   		$scope.hello = "hello";
 			   		  $scope.ok = function () {
-					    $modalInstance.close($scope.hello);
+			   		  	gservice.setPanel();
 					  };
 
 					  $scope.cancel = function () {
 					    $modalInstance.dismiss('cancel');
+					    $scope.printDirections = false;
 					  };
 			   },
 			  resolve: {
@@ -59,6 +59,8 @@ angular.module('map', ['gservice' , 'ui.bootstrap'])
 
 		///START DIRECTIONS STUFF
 		$scope.startDirections = function(id){
+			$scope.printDirections = true;
+
 			// console.log(id.geometry.location.lat, id.geometry.lng());
 			console.log(id.geometry.location.lat(), id.geometry.location.lng());
 			var location = {lat: id.geometry.location.lat() , lng:id.geometry.location.lng() };

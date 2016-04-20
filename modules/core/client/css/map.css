@@ -5,7 +5,12 @@
 .mapCanvas {
 	height: 500px;
 	border-style: solid;
+	border-width: 1px;
 
+}
+.image-limit-post{
+	max-width: 300px;
+	max-height: 200px;
 }
 
 .gymInfo {
@@ -14,10 +19,12 @@
 	padding-left:50px;
 	padding-top:10px;
 	background-color: #F5F5F5;
+	border-style: solid;
+	border-width: 1px;
 
 }
 .info-row {
-
+	padding:20px;
 	/*border-style: solid;*/
 
 }
